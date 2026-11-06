@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>下载总站</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #f5f5f7; color: #1d1d1f; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 48px 20px 64px; }
+  header { margin-bottom: 32px; }
+  h1 { font-size: 34px; font-weight: 700; letter-spacing: -0.5px; }
+  .sub { color: #6e6e73; font-size: 17px; margin-top: 8px; }
+  .updated { color: #86868b; font-size: 13px; margin-top: 4px; }
+  section {
+    background: #fff; border-radius: 18px; padding: 20px 20px 8px;
+    margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  h2 { font-size: 19px; font-weight: 700; margin-bottom: 2px; }
+  .desc { color: #6e6e73; font-size: 14px; margin-bottom: 12px; }
+  .file {
+    display: flex; align-items: baseline; gap: 10px;
+    padding: 13px 0; border-top: 1px solid #f0f0f2; text-decoration: none; color: inherit;
+  }
+  .file:hover .name { color: #0066cc; }
+  .name { font-size: 16px; font-weight: 600; flex: 1; }
+  .size { color: #86868b; font-size: 13px; white-space: nowrap; }
+  .tag {
+    font-size: 12px; font-weight: 600; color: #0066cc; background: #e8f1fc;
+    border-radius: 6px; padding: 2px 7px; white-space: nowrap;
+  }
+  .note {
+    color: #6e6e73; font-size: 14px; text-align: center;
+    margin-top: 28px; padding: 0 12px;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { background: #000; color: #f5f5f7; }
+    section { background: #1c1c1e; box-shadow: none; }
+    .sub, .desc, .note { color: #a1a1a6; }
+    .size { color: #86868b; }
+    .file { border-top-color: #2c2c2e; }
+    .tag { background: #0a2a4a; color: #6db3f2; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>下载总站</h1>
+    <p class="sub">所有项目的最终交付物都在这里，一个固定地址，点开就能下载。</p>
+    <p class="updated">最后更新：2026-11-06 · 新项目会继续加到这里</p>
+  </header>
+
+  <section>
+    <h2>常熟边检站刷题宝 v0.7</h2>
+    <p class="desc">局域网离线刷题系统，Win7 兼容修复版。Win7 主机用 Win7 专用版，Win10/11 用通用版，两个不要混用。</p>
+    <a class="file" href="shuati-bao/%E5%88%B7%E9%A2%98%E5%AE%9D-Win7.exe"><span class="name">刷题宝-Win7.exe</span><span class="tag">Win7 专用</span><span class="size">6.3 MB</span></a>
+    <a class="file" href="shuati-bao/%E5%88%B7%E9%A2%98%E5%AE%9D.exe"><span class="name">刷题宝.exe</span><span class="tag">Win10/11 通用</span><span class="size">8.6 MB</span></a>
+    <a class="file" href="shuati-bao/%E5%88%B7%E9%A2%98%E5%AE%9D-v0.7-%E7%BD%91%E9%A1%B5%E7%89%88-Win7%E4%BF%AE%E5%A4%8D.zip"><span class="name">刷题宝-v0.7-网页版-Win7修复.zip</span><span class="tag">网页版</span><span class="size">220 KB</span></a>
+    <a class="file" href="shuati-bao/showcase.html"><span class="name">可交互介绍页</span><span class="tag">在线看</span><span class="size">48 KB</span></a>
+    <a class="file" href="shuati-bao/product-intro.md"><span class="name">product-intro.md（产品介绍）</span><span class="size">16 KB</span></a>
+    <a class="file" href="shuati-bao/audit-win7-compat-v0.7.md"><span class="name">audit-win7-compat-v0.7.md（Win7 兼容审核报告）</span><span class="size">7 KB</span></a>
+    <a class="file" href="shuati-bao/exe-guide.md"><span class="name">exe-guide.md（exe 使用说明）</span><span class="size">2 KB</span></a>
+  </section>
+
+  <section>
+    <h2>Telegram 登录码自建版 v0.2</h2>
+    <p class="desc">自己搭的 Telegram 登录码网站，精简版一屏查码。</p>
+    <a class="file" href="telegram-code/Telegram%E7%99%BB%E5%BD%95%E7%A0%81%E8%87%AA%E5%BB%BA%E7%89%88.zip"><span class="name">Telegram登录码自建版.zip</span><span class="tag">完整项目</span><span class="size">28 KB</span></a>
+    <a class="file" href="telegram-code/showcase.html"><span class="name">可交互介绍页</span><span class="tag">在线看</span><span class="size">9 KB</span></a>
+    <a class="file" href="telegram-code/%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D.md"><span class="name">产品介绍.md</span><span class="size">4 KB</span></a>
+  </section>
+
+  <section>
+    <h2>魔搭 Notebook 保活</h2>
+    <p class="desc">Notebook 4 小时链式续跑：WorkBuddy 定时任务 + Cloudflare 提醒 Worker。</p>
+    <a class="file" href="keepalive/%E9%AD%94%E6%90%ADNotebook%E4%BF%9D%E6%B4%BB.zip"><span class="name">魔搭Notebook保活.zip</span><span class="tag">完整资料</span><span class="size">15 KB</span></a>
+    <a class="file" href="keepalive/worker.js"><span class="name">worker.js（Cloudflare 提醒版）</span><span class="size">4 KB</span></a>
+    <a class="file" href="keepalive/notebook_auto_start.py"><span class="name">notebook_auto_start.py（WorkBuddy 脚本）</span><span class="size">8 KB</span></a>
+  </section>
+
+
+
+  <p class="note">这个地址长期固定，不会换。Notebook 里也存了一份同样的文件。</p>
+</div>
+</body>
+</html>

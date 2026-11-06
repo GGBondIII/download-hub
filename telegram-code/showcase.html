@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>演示 — 自建登录码怎么走一遍</title>
+<style>
+:root{--bg:#f5f5f7;--card:#fff;--text:#1d1d1f;--sub:#6e6e73;--line:rgba(0,0,0,.08);
+--blue:#0071e3;--blue-soft:#e8f2fd;--green:#1d7a3d;--green-soft:#e6f4ea;--amber-soft:#fff3d6;
+--spring:cubic-bezier(.34,1.56,.64,1)}
+@media (prefers-color-scheme: dark){:root{--bg:#000;--card:#1c1c1e;--text:#f5f5f7;--sub:#98989d;--line:rgba(255,255,255,.12);--blue:#0a84ff;--blue-soft:#12233d;--green:#30d158;--green-soft:#122b1a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+.wrap{max-width:880px;margin:0 auto;padding:0 20px 56px}
+header{padding:48px 0 8px;text-align:center}
+h1{font-size:36px;letter-spacing:-.02em;margin:0 0 10px}
+.sub{color:var(--sub);font-size:17px;max-width:560px;margin:0 auto}
+.progress{display:flex;gap:8px;justify-content:center;margin:28px 0 8px}
+.progress i{height:6px;flex:1;max-width:120px;border-radius:999px;background:var(--line);transition:background .3s}
+.progress i.on{background:var(--blue)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;margin-top:16px}
+.card h2{margin:0 0 6px;font-size:20px}.card p{margin:0 0 12px;color:var(--sub);font-size:15px}
+.btn{min-height:44px;padding:0 20px;border-radius:999px;border:1px solid transparent;background:var(--blue);color:#fff;font:inherit;font-weight:600;cursor:pointer;transition:transform .22s var(--spring),box-shadow .2s}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:var(--card);border-color:var(--line);color:var(--blue)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.phone{border:1px solid var(--line);border-radius:20px;padding:16px;background:var(--bg);margin-top:12px}
+.phone .screen{background:var(--card);border-radius:14px;padding:16px;min-height:96px}
+.code{font-size:48px;font-weight:700;letter-spacing:.14em;text-align:center;font-variant-numeric:tabular-nums}
+.muted{color:var(--sub);font-size:14px;text-align:center}
+.step{display:none}
+.step.active{display:block;animation:pop .35s var(--spring)}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.99)}to{opacity:1;transform:none}}
+.check{color:var(--green);font-weight:700}
+.note{background:var(--amber-soft);border-radius:14px;padding:12px 14px;font-size:14px;margin-top:12px}
+.layout{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+@media(max-width:640px){.layout{grid-template-columns:1fr}h1{font-size:28px}}
+.layout div{border:1px solid var(--line);border-radius:14px;padding:14px;font-size:14px}
+.layout b{display:block;margin-bottom:4px}
+.layout span{color:var(--sub)}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body><div class="wrap">
+<header><h1>走一遍：从登录到进账号</h1><p class="sub">点下一步，看每一步发生什么。所有码都是演示用的假码，不连 Telegram。</p></header>
+<div class="progress" id="prog"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+
+<!-- Step 1 -->
+<section class="card step active" data-step="0">
+<h2>① 新设备上登录 Telegram</h2><p>在新手机 / 新电脑上打开 Telegram，输入你的号码，点“发送验证码”。</p>
+<div class="phone"><div class="screen"><b>Telegram</b><p class="muted">输入号码后，Telegram 会把登录码发给已登录的设备 —<br>这次就是你自己的监听，不是第三方。</p></div></div>
+<div class="row"><button class="btn" data-next>下一步：码发来了</button></div>
+</section>
+
+<!-- Step 2 -->
+<section class="card step" data-step="1">
+<h2>② 你的监听收到码</h2><p>服务器上的 Telethon 客户端一直在线，监听官方账号 777000，一收到带 5 位码的消息就只存最新一条。</p>
+<div class="phone"><div class="screen"><p class="muted">监听日志（不记码本身）</p><p>收到一条新登录码 · 已保存 · 5 分钟后过期</p></div></div>
+<div class="note">只存最新一条，不留历史。过期自动清除。</div>
+<div class="row"><button class="btn" data-next>下一步：打开你的页面</button><button class="btn ghost" data-prev>上一步</button></div>
+</section>
+
+<!-- Step 3 -->
+<section class="card step" data-step="2">
+<h2>③ 打开你的页面，粘贴令牌</h2><p>没有令牌，什么都查不到。令牌在服务器的 data/access_token.txt 里，第一次运行时自动生成。</p>
+<div class="phone"><div class="screen"><p>访问令牌 <input type="password" value="demo-token-••••" readonly style="width:100%;min-height:44px;border-radius:12px;border:1px solid var(--line);padding:0 12px;background:var(--bg);color:var(--text)"></p><p class="muted">令牌只存在这次打开的页面里，关掉标签页就没了。</p></div></div>
+<div class="row"><button class="btn" data-next>下一步：看码</button><button class="btn ghost" data-prev>上一步</button></div>
+</section>
+
+<!-- Step 4 -->
+<section class="card step" data-step="3">
+<h2>④ 看到码，复制，倒计时在走</h2><p>点“刷新验证码”，最新一条码就出来了，带 5 分钟倒计时。</p>
+<div class="phone"><div class="screen"><div class="code" id="demoCode">• • • • •</div><p class="muted" id="demoCount">点下面生成一条演示码</p></div></div>
+<div class="row"><button class="btn" id="genBtn">生成一条演示码</button><button class="btn ghost" id="copyBtn" disabled>复制验证码</button></div>
+<div class="row"><button class="btn" data-next>下一步：完成登录</button><button class="btn ghost" data-prev>上一步</button></div>
+</section>
+
+<!-- Step 5 -->
+<section class="card step" data-step="4">
+<h2>⑤ 回新设备填码，进账号 <span class="check">✓</span></h2><p>5 分钟内把码填回去，就登录成功了。过期了就回页面再刷一条新的 — 旧码已经自动清掉，不能再用。</p>
+<div class="phone"><div class="screen"><p><span class="check">✓ 登录成功</span></p><p class="muted">这次用的码已过期失效，不会留在服务器上。</p></div></div>
+<div class="row"><button class="btn" data-restart>再走一遍</button><a class="btn ghost" href="index.html" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none;min-height:44px;padding:0 20px;border-radius:999px">打开主页面</a></div>
+</section>
+
+<section class="card">
+<h2>页面长什么样（借的版式结构）</h2><p>顶部固定导航、公告横幅、主视觉区、4 项特性、状态 / 计时卡片、内容卡片网格、页脚三栏。只借结构，文案、品牌、产品都是为这个私人工具新写的。</p>
+<div class="layout">
+<div><b>顶部导航 + 公告</b><span>一直能看到，先说“仅你可用、5 分钟过期”。</span></div>
+<div><b>主视觉 + 两个入口</b><span>一句话讲清是干嘛的：查码 / 部署说明。</span></div>
+<div><b>4 项特性</b><span>私人自建、令牌保护、自动过期、不经过第三方。</span></div>
+<div><b>状态卡 + 验证码卡</b><span>监听在线吗、最后收到什么时候、码还剩几秒。</span></div>
+</div>
+<div class="note">魔搭提醒：Notebook 单次最长 10 小时、空闲 1 小时自动关，关了服务就停了，得重开。保活在另一个旁聊里做。</div>
+</section>
+</div>
+<script>
+(function(){
+  const steps=[...document.querySelectorAll('.step')];
+  const bars=[...document.querySelectorAll('#prog i')];
+  let cur=0, left=0, timer=null, code='';
+  function show(i){ cur=i; steps.forEach((s,k)=>s.classList.toggle('active',k===i)); bars.forEach((b,k)=>b.classList.toggle('on',k<=i)); window.scrollTo({top:0,behavior:'smooth'}); }
+  document.querySelectorAll('[data-next]').forEach(b=>b.addEventListener('click',()=>show(Math.min(cur+1,steps.length-1))));
+  document.querySelectorAll('[data-prev]').forEach(b=>b.addEventListener('click',()=>show(Math.max(cur-1,0))));
+  document.querySelectorAll('[data-restart]').forEach(b=>b.addEventListener('click',()=>show(0)));
+  const gen=document.getElementById('genBtn'), copy=document.getElementById('copyBtn'),
+        dc=document.getElementById('demoCode'), dcount=document.getElementById('demoCount');
+  gen.addEventListener('click',()=>{
+    code=String(Math.floor(Math.random()*100000)).padStart(5,'0');
+    dc.textContent=code.split('').join(' '); copy.disabled=false; left=300;
+    if(timer) clearInterval(timer);
+    timer=setInterval(()=>{ left--; dcount.textContent='还剩 '+left+' 秒过期';
+      if(left<=0){ clearInterval(timer); dc.textContent='• • • • •'; dcount.textContent='已过期，请重新生成'; copy.disabled=true; } },1000);
+    dcount.textContent='还剩 300 秒过期';
+  });
+  copy.addEventListener('click',async()=>{ try{ await navigator.clipboard.writeText(code); copy.textContent='已复制 ✓'; setTimeout(()=>copy.textContent='复制验证码',1500);}catch(e){ copy.textContent='请手动复制'; }});
+})();
+</script>
+</body>
+</html>
