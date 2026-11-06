@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>常熟站智考通 v2.1 — 产品介绍</title>
+<style>
+:root{
+  --navy:#24425F; --navy-dark:#1A3149; --navy-deep:#13222F;
+  --gold:#D9A55C; --gold-dark:#B9894A; --gold-light:#F6E8D2;
+  --bg:#F4F6F9; --card:#FFFFFF; --primary-light:#E9EEF5;
+  --ink:#1C2733; --ink-2:#5A6B7C; --line:#E2E8F0;
+  --green:#16A34A; --red:#DC2626; --amber:#F59E0B;
+  --radius:16px; --radius-s:10px;
+  --spring:cubic-bezier(.34,1.56,.64,1);
+  --ease:cubic-bezier(.32,.72,.35,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--navy);text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
+/* ---------- 顶栏 ---------- */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line)}
+.topbar-in{max-width:1120px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px}
+.logo-badge{width:40px;height:40px;border-radius:11px;background:var(--navy);flex:0 0 40px;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(36,66,95,.28)}
+.logo-badge svg{width:26px;height:26px}
+.brand{font-size:17px;font-weight:700;color:var(--navy);letter-spacing:.5px;line-height:1.2}
+.brand small{display:block;font-size:12px;font-weight:500;color:var(--ink-2);letter-spacing:0}
+.topbar nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+.topbar nav a{font-size:13px;font-weight:600;color:var(--ink-2);padding:7px 11px;border-radius:999px;
+  transition:background .2s var(--ease),color .2s var(--ease)}
+.topbar nav a:hover{background:var(--primary-light);color:var(--navy)}
+.mode-btn{margin-left:6px;font-size:13px;font-weight:600;color:var(--navy);
+  border:1px solid var(--line);border-radius:999px;padding:7px 13px;background:#fff;
+  transition:transform .25s var(--spring),box-shadow .25s var(--spring)}
+.mode-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(36,66,95,.14)}
+.mode-btn:active{transform:scale(.96)}
+/* ---------- Hero ---------- */
+.hero{background:linear-gradient(160deg,var(--navy-deep) 0%,var(--navy) 55%,var(--navy-dark) 100%);
+  color:#fff;overflow:hidden}
+.hero-in{max-width:1120px;margin:0 auto;padding:72px 20px 64px;display:grid;
+  grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;
+  letter-spacing:2px;color:var(--gold);border:1px solid rgba(217,165,92,.5);
+  padding:6px 12px;border-radius:999px;background:rgba(217,165,92,.1)}
+.hero h1{font-size:44px;line-height:1.15;font-weight:800;letter-spacing:.5px;margin:20px 0 14px}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero p.lead{font-size:17px;color:#C7D3E0;max-width:520px}
+.hero p.lead b{color:#fff}
+.hero-stats{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);
+  border-radius:var(--radius-s);padding:12px 16px;min-width:104px;
+  transition:transform .3s var(--spring),background .3s var(--ease)}
+.stat:hover{transform:translateY(-3px);background:rgba(255,255,255,.13)}
+.stat b{display:block;font-size:22px;color:var(--gold);line-height:1.1}
+.stat span{font-size:12px;color:#C7D3E0}
+.hero-cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:700;
+  padding:12px 22px;border-radius:999px;transition:transform .25s var(--spring),box-shadow .25s var(--spring),background .25s var(--ease)}
+.btn:active{transform:scale(.96)}
+.btn-gold{background:var(--gold);color:var(--navy-deep);box-shadow:0 6px 18px rgba(217,165,92,.35)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(217,165,92,.45)}
+.btn-ghost{border:1.5px solid rgba(255,255,255,.4);color:#fff}
+.btn-ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-2px)}
+/* Hero 手机/窗口 mock */
+.phone{position:relative;background:#fff;border-radius:24px;color:var(--ink);
+  box-shadow:0 24px 60px rgba(0,0,0,.35);overflow:hidden;
+  transform:rotate(1.5deg);transition:transform .35s var(--spring)}
+.phone:hover{transform:rotate(0deg) translateY(-4px)}
+.phone-bar{background:var(--navy);color:#fff;padding:14px 18px;display:flex;align-items:center;gap:10px}
+.phone-bar b{font-size:14px}
+.phone-bar span{margin-left:auto;font-size:11px;color:var(--gold-light);background:rgba(217,165,92,.2);
+  padding:3px 9px;border-radius:999px}
+.phone-body{padding:18px}
+.phone-body .hello{font-size:15px;font-weight:700}
+.phone-body .hello small{display:block;font-size:12px;color:var(--ink-2);font-weight:500;margin-top:2px}
+.mini-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}
+.mini-stats div{background:var(--bg);border-radius:var(--radius-s);padding:10px 6px;text-align:center}
+.mini-stats b{display:block;font-size:17px;color:var(--navy)}
+.mini-stats span{font-size:11px;color:var(--ink-2)}
+.mock-card{display:flex;align-items:center;gap:12px;background:var(--bg);border-radius:12px;
+  padding:12px;margin-top:8px;text-align:left;width:100%;
+  transition:transform .25s var(--spring),box-shadow .25s var(--spring)}
+.mock-card:hover{transform:translateX(4px);box-shadow:0 6px 16px rgba(36,66,95,.12)}
+.mock-card .dot{width:38px;height:38px;border-radius:50%;flex:0 0 38px;display:flex;align-items:center;
+  justify-content:center;font-size:17px;color:#fff}
+.mock-card b{display:block;font-size:14px}
+.mock-card span{font-size:12px;color:var(--ink-2)}
+/* ---------- 通用区块 ---------- */
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+section.block{padding:64px 0 8px}
+.sec-head{max-width:680px;margin-bottom:28px}
+.sec-head .kicker{font-size:12px;font-weight:700;letter-spacing:2px;color:var(--gold-dark)}
+.sec-head h2{font-size:30px;line-height:1.25;font-weight:800;color:var(--navy);margin:8px 0 10px}
+.sec-head p{font-size:15px;color:var(--ink-2)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:0 2px 10px rgba(36,66,95,.05)}
+/* 入场动效 */
+.reveal{opacity:0;transform:translateY(18px)}
+.reveal.in{opacity:1;transform:none;transition:opacity .35s var(--ease),transform .35s var(--spring)}
+/* ---------- 部署双卡 ---------- */
+.deploy-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.deploy{padding:28px;transition:transform .3s var(--spring),box-shadow .3s var(--spring)}
+.deploy:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(36,66,95,.12)}
+.deploy .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.5px;
+  padding:4px 10px;border-radius:999px;margin-bottom:12px}
+.deploy .tag-main{background:var(--gold-light);color:var(--gold-dark)}
+.deploy .tag-web{background:var(--primary-light);color:var(--navy)}
+.deploy h3{font-size:20px;color:var(--navy);margin-bottom:6px}
+.deploy p{font-size:14px;color:var(--ink-2);margin-bottom:14px}
+.deploy ol{margin:0 0 16px 20px;font-size:14px;color:var(--ink)}
+.deploy ol li{margin-bottom:6px}
+.deploy code{background:var(--bg);border:1px solid var(--line);border-radius:6px;
+  padding:1px 7px;font-size:13px;font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--navy)}
+.deploy .note{font-size:13px;color:var(--ink-2);border-top:1px dashed var(--line);padding-top:12px}
+
+/* ---------- 模块导航 ---------- */
+.mod-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.mod-tab{font-size:13px;font-weight:700;color:var(--ink-2);padding:9px 15px;border-radius:999px;
+  border:1px solid var(--line);background:#fff;
+  transition:all .25s var(--spring)}
+.mod-tab:hover{transform:translateY(-1px);border-color:var(--gold);color:var(--navy)}
+.mod-tab[aria-selected="true"]{background:var(--navy);color:#fff;border-color:var(--navy);
+  box-shadow:0 6px 16px rgba(36,66,95,.25)}
+.mod-panel{display:none}
+.mod-panel.active{display:block;animation:panelIn .35s var(--spring)}
+@keyframes panelIn{from{opacity:0;transform:translateY(12px) scale(.995)}to{opacity:1;transform:none}}
+.mod-body{display:grid;grid-template-columns:1fr 1fr;gap:0;overflow:hidden}
+.mod-info{padding:30px 32px}
+.mod-info .who{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;
+  color:var(--gold-dark);background:var(--gold-light);padding:4px 10px;border-radius:999px;margin-bottom:12px}
+.mod-info h3{font-size:22px;color:var(--navy);margin-bottom:10px}
+.mod-info p{font-size:14px;color:var(--ink-2);margin-bottom:14px}
+.mod-info ul{margin-left:18px;font-size:14px}
+.mod-info ul li{margin-bottom:7px}
+.mod-info ul li b{color:var(--navy)}
+.mod-demo{background:var(--bg);padding:28px 24px;border-left:1px solid var(--line);
+  display:flex;flex-direction:column;gap:12px;justify-content:center}
+.demo-label{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--ink-2)}
+/* 演示小组件 */
+.demo-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px}
+.demo-card h4{font-size:14px;color:var(--navy);margin-bottom:8px}
+.demo-opt{display:flex;align-items:center;gap:10px;width:100%;text-align:left;
+  padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;margin-top:8px;
+  font-size:14px;transition:all .25s var(--spring)}
+.demo-opt:hover{border-color:var(--navy);transform:translateX(3px)}
+.demo-opt .mark{width:20px;height:20px;border-radius:50%;border:2px solid #B9C4D0;flex:0 0 20px;
+  display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;transition:all .2s var(--ease)}
+.demo-opt.sel{background:var(--navy);color:#fff;border-color:var(--navy)}
+.demo-opt.sel .mark{background:var(--gold);border-color:var(--gold)}
+.demo-opt.right{background:#EAF7EF;border-color:var(--green);color:#14532D}
+.demo-opt.right .mark{background:var(--green);border-color:var(--green)}
+.demo-opt.wrong{background:#FDECEC;border-color:var(--red);color:#7F1D1D}
+.demo-opt.wrong .mark{background:var(--red);border-color:var(--red)}
+.demo-feedback{border-radius:10px;padding:12px 14px;font-size:13px;display:none}
+.demo-feedback.show{display:block;animation:panelIn .3s var(--spring)}
+.demo-feedback.ok{background:#EAF7EF;color:#14532D;border:1px solid #BBE7C9}
+.demo-feedback.bad{background:#FFF7E6;color:#7C4A03;border:1px solid #F3D9A4}
+.demo-feedback b{display:block;margin-bottom:2px}
+.pill{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px}
+.pill-navy{background:var(--primary-light);color:var(--navy)}
+.pill-green{background:#EAF7EF;color:var(--green)}
+.pill-red{background:#FDECEC;color:var(--red)}
+.pill-gold{background:var(--gold-light);color:var(--gold-dark)}
+.pill-grey{background:#EEF1F5;color:var(--ink-2)}
+.demo-row{display:flex;align-items:center;gap:10px;font-size:13px;padding:9px 0;
+  border-bottom:1px solid var(--line)}
+.demo-row:last-child{border-bottom:0}
+.demo-row b{color:var(--navy)}
+.demo-row .right{margin-left:auto;font-weight:700;color:var(--navy)}
+.bar{height:8px;border-radius:99px;background:var(--primary-light);overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--gold));
+  width:0;transition:width .8s var(--spring)}
+.in .bar i{width:var(--w,60%)}
+.count-up{font-variant-numeric:tabular-nums}
+.timer{font-size:26px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums;letter-spacing:1px}
+.timer.warn{color:var(--red)}
+.answer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.answer-grid button{aspect-ratio:1;border-radius:9px;border:1.5px solid var(--line);
+  font-size:13px;font-weight:700;color:var(--ink-2);background:#fff;
+  transition:all .2s var(--spring)}
+.answer-grid button:hover{border-color:var(--navy);transform:scale(1.06)}
+.answer-grid button.done{background:var(--navy);color:#fff;border-color:var(--navy)}
+.answer-grid button.cur{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-light)}
+/* ---------- 账号表 ---------- */
+.acct-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.acct{padding:22px;text-align:center;transition:transform .3s var(--spring),box-shadow .3s var(--spring)}
+.acct:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(36,66,95,.12)}
+.acct .avatar{width:52px;height:52px;border-radius:50%;margin:0 auto 12px;display:flex;
+  align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;background:var(--navy)}
+.acct:nth-child(2) .avatar{background:var(--gold-dark)}
+.acct:nth-child(3) .avatar,.acct:nth-child(4) .avatar{background:#3E6B8F}
+.acct code{display:block;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.acct .role{font-size:12px;font-weight:700;color:var(--gold-dark)}
+.acct p{font-size:13px;color:var(--ink-2);margin-top:8px}
+.warn-strip{margin-top:16px;background:#FFF7E6;border:1px solid #F3D9A4;color:#7C4A03;
+  border-radius:var(--radius-s);padding:14px 18px;font-size:14px;display:flex;gap:10px;align-items:flex-start}
+.warn-strip b{flex:0 0 auto}
+/* ---------- 改名 ---------- */
+.rebrand-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.rebrand{padding:26px}
+.rebrand h3{font-size:18px;color:var(--navy);margin-bottom:12px}
+.steps{list-style:none;counter-reset:step}
+.steps li{counter-increment:step;position:relative;padding:0 0 16px 42px;font-size:14px;color:var(--ink-2)}
+.steps li::before{content:counter(step);position:absolute;left:0;top:0;width:26px;height:26px;
+  border-radius:50%;background:var(--navy);color:#fff;font-size:13px;font-weight:700;
+  display:flex;align-items:center;justify-content:center}
+.steps li b{color:var(--ink)}
+.steps li::after{content:"";position:absolute;left:12px;top:30px;bottom:2px;width:2px;background:var(--line)}
+.steps li:last-child::after{display:none}
+.rebrand-demo{background:var(--navy-deep);color:#fff}
+.rebrand-demo label{display:block;font-size:12px;color:#C7D3E0;margin:12px 0 5px}
+.rebrand-demo input{width:100%;padding:11px 13px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);
+  background:rgba(255,255,255,.08);color:#fff;font-size:14px;transition:border-color .2s var(--ease)}
+.rebrand-demo input:focus{border-color:var(--gold);outline:none}
+.rebrand-demo input[readonly]{opacity:.65}
+.rebrand-demo .out{margin-top:16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+  border-radius:10px;padding:13px 15px;font-size:13px;min-height:64px;color:#C7D3E0}
+.rebrand-demo .out b{color:var(--gold)}
+.rebrand-demo .btn{width:100%;justify-content:center;margin-top:16px}
+/* ---------- FAQ / 限制 ---------- */
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-item:last-child{border-bottom:0}
+.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:18px 24px;font-size:15px;font-weight:700;color:var(--navy);text-align:left;
+  transition:background .2s var(--ease)}
+.faq-q:hover{background:var(--bg)}
+.faq-q .chev{transition:transform .3s var(--spring);color:var(--gold-dark);font-size:18px}
+.faq-item.open .faq-q .chev{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s var(--ease)}
+.faq-a p{padding:0 24px 18px;font-size:14px;color:var(--ink-2)}
+.faq-item.open .faq-a{max-height:220px}
+.limit-list{margin:0;padding:26px 28px 26px 48px;font-size:14px;color:var(--ink-2)}
+.limit-list li{margin-bottom:10px}
+.limit-list li b{color:var(--ink)}
+/* ---------- 页脚 ---------- */
+footer{margin-top:72px;background:var(--navy-deep);color:#C7D3E0}
+footer .wrap{padding:40px 20px;display:flex;gap:24px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+footer b{color:#fff}
+footer .f-note{font-size:13px;max-width:640px}
+/* ---------- 深色模式 ---------- */
+@media (prefers-color-scheme:dark){
+  body.dark-auto,body.dark{--bg:#0F1822;--card:#182635;--ink:#E8EEF4;--ink-2:#9FB0C0;
+    --line:#2A3B4D;--primary-light:#22344A}
+  body.dark-auto .topbar,body.dark .topbar{background:rgba(15,24,34,.86)}
+  body.dark-auto .topbar nav a:hover,body.dark .topbar nav a:hover{background:var(--primary-light)}
+  body.dark-auto .mode-btn,body.dark .mode-btn{background:var(--card);color:var(--ink)}
+  body.dark-auto .mod-tab,body.dark .mod-tab{background:var(--card);color:var(--ink-2)}
+  body.dark-auto .demo-card,body.dark .demo-card{background:#1E2F42}
+  body.dark-auto .demo-opt,body.dark .demo-opt{background:#1E2F42}
+  body.dark-auto .answer-grid button,body.dark .answer-grid button{background:#1E2F42;color:var(--ink-2)}
+  body.dark-auto .deploy code,body.dark .deploy code{background:#0F1822}
+  body.dark-auto .warn-strip,body.dark .warn-strip{background:#3A2E12;color:#F3D9A4;border-color:#6B5518}
+  body.dark-auto .mini-stats div,body.dark .mini-stats div{background:#22344A}
+  body.dark-auto .mock-card,body.dark .mock-card{background:#22344A}
+}
+body.dark{--bg:#0F1822;--card:#182635;--ink:#E8EEF4;--ink-2:#9FB0C0;--line:#2A3B4D;--primary-light:#22344A}
+body.dark .topbar{background:rgba(15,24,34,.86)}
+body.dark .topbar nav a:hover{background:var(--primary-light)}
+body.dark .mode-btn{background:var(--card);color:var(--ink)}
+body.dark .mod-tab{background:var(--card);color:var(--ink-2)}
+body.dark .demo-card{background:#1E2F42}
+body.dark .demo-opt{background:#1E2F42}
+body.dark .answer-grid button{background:#1E2F42;color:var(--ink-2)}
+body.dark .deploy code{background:#0F1822}
+body.dark .warn-strip{background:#3A2E12;color:#F3D9A4;border-color:#6B5518}
+body.dark .mini-stats div{background:#22344A}
+body.dark .mock-card{background:#22344A}
+/* ---------- 响应式 ---------- */
+@media (max-width:860px){
+  .hero-in{grid-template-columns:1fr;padding:52px 20px 48px}
+  .hero h1{font-size:34px}
+  .deploy-grid,.rebrand-grid{grid-template-columns:1fr}
+  .mod-body{grid-template-columns:1fr}
+  .mod-demo{border-left:0;border-top:1px solid var(--line)}
+  .acct-grid{grid-template-columns:1fr 1fr}
+  .topbar nav{display:none}
+}
+/* ---------- 减弱动效 ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+body.reduced-motion *,body.reduced-motion *::before,body.reduced-motion *::after{
+  animation-duration:.01ms!important;transition-duration:.01ms!important}
+body.reduced-motion .reveal{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="logo-badge" aria-hidden="true">
+      <svg viewBox="0 0 64 64"><rect x="2" y="2" width="60" height="60" rx="14" fill="#24425F"/><path d="M32 12 L48 20 V34 C48 44 40 50 32 53 C24 50 16 44 16 34 V20 Z" fill="none" stroke="#fff" stroke-width="3"/><path d="M32 20 L38 26 H26 Z" fill="#D9A55C"/><path d="M24 34 L32 30 L40 34 V38 L32 42 L24 38 Z" fill="#D9A55C"/><circle cx="44" cy="44" r="3" fill="#D9A55C"/></svg>
+    </div>
+    <div class="brand">常熟站智考通<small>一站式备考 · v2.1</small></div>
+    <nav aria-label="页面导航">
+      <a href="#deploy">部署</a><a href="#modules">12 个模块</a><a href="#v2new">v2 新增</a><a href="#accounts">账号</a>
+      <a href="#rebrand">改名工具</a><a href="#faq">常见问题</a>
+    </nav>
+    <button class="mode-btn" id="modeBtn" type="button" aria-pressed="false">🌙 深色</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-in">
+    <div>
+      <span class="eyebrow">原版智考通 v2.9.0 · 1:1 复刻 · 刷题宝功能并入 · 常熟站版</span>
+      <h1>常熟站智考通 <em>v2.1</em><br>一站式备考</h1>
+      <p class="lead">日常练习、模拟考试、正式考试、错题本与智能分析——<b>12 个模块全齐</b>。
+      exe 桌面版为主，XP / Win7 / Win10 通用；网页版为辅，供别的系统使用。
+      v2.0 并入刷题宝全部功能：自适应学习、组卷模板、学习计划、简答批阅、仪表盘、联邦共享、备份、本地 AI 变式；v2.1 新增启动诊断：双击没反应时用 debug.bat 看报错，启动失败自动写 error.log 并弹框。
+      零依赖、零 CDN，局域网离线可用。</p>
+      <div class="hero-stats">
+        <div class="stat"><b>12</b><span>功能模块</span></div>
+        <div class="stat"><b>107</b><span>API 端点</span></div>
+        <div class="stat"><b>20</b><span>播种样题</span></div>
+        <div class="stat"><b>8766</b><span>服务端口</span></div>
+      </div>
+      <div class="hero-cta">
+        <a class="btn btn-gold" href="#modules">看看 12 个模块 →</a>
+        <a class="btn btn-ghost" href="#deploy">两种部署方式</a>
+      </div>
+    </div>
+    <div class="phone" role="img" aria-label="学员首页预览：问候、练习统计与四大模块卡片">
+      <div class="phone-bar"><b>常熟站智考通</b><span>v2.1</span></div>
+      <div class="phone-body">
+        <div class="hello">你好，民警甲<small>执勤一队 · 学员</small></div>
+        <div class="mini-stats">
+          <div><b class="count-up" data-count="128">0</b><span>已练习</span></div>
+          <div><b class="count-up" data-count="102">0</b><span>答对</span></div>
+          <div><b class="count-up" data-count="80" data-suffix="%">0</b><span>正确率</span></div>
+          <div><b class="count-up" data-count="26">0</b><span>错题</span></div>
+        </div>
+        <button class="mock-card" type="button" data-goto="practice"><span class="dot" style="background:#24425F">📖</span><span><b>顺序刷题</b><span>按题号全量顺序，断点续刷</span></span></button>
+        <button class="mock-card" type="button" data-goto="mock"><span class="dot" style="background:#D9A55C">⏱</span><span><b>模拟考试</b><span>自由组卷，计时交卷</span></span></button>
+        <button class="mock-card" type="button" data-goto="exam"><span class="dot" style="background:#16A34A">📝</span><span><b>正式考试</b><span>考官发布，统一判分</span></span></button>
+        <button class="mock-card" type="button" data-goto="wrongbook"><span class="dot" style="background:#DC2626">🔖</span><span><b>错题本</b><span>做对一题自动移除</span></span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main>
+<!-- 部署 -->
+<section class="block" id="deploy">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">两种部署</div>
+      <h2>exe 为主，网页版为辅</h2>
+      <p>同一套服务器核心与数据模型，端口 8766。主机用 exe，别的系统用网页版。</p>
+    </div>
+    <div class="deploy-grid">
+      <article class="card deploy reveal">
+        <span class="tag tag-main">主 · 桌面客户端</span>
+        <h3>exe 版 — XP / Win7 / Win10 通用</h3>
+        <p>便携文件夹 + 32 位启动器，自带 32 位 Python 3.4.4 运行时与 Pillow，解压即用。</p>
+        <ol>
+          <li>解压 <code>changshu-zhikaotong-v2.1-exe.zip</code>（全部英文文件名），建议放在浅目录，如 <code>D:\常熟站智考通\</code>。</li>
+          <li>双击 <code>changshu-zhikaotong.exe</code>，无控制台窗口，自动拉起应用与内嵌服务器。</li>
+          <li>用演示账号登录（见下方账号表）。首次启动自动在 <code>data/</code> 下建库播种。</li>
+        </ol>
+        <p class="note">局域网其他机器：同样跑这个 exe，登录页把服务器地址改成主机 IP（如 <code>http://192.168.1.100:8766</code>），即可连主机。</p>
+      </article>
+      <article class="card deploy reveal">
+        <span class="tag tag-web">辅 · 供别的系统使用</span>
+        <h3>网页版 — 浏览器打开即用</h3>
+        <p>与 exe 版共用同一套服务器代码，现代版 + Lite 版（IE8 / XP 老浏览器）双界面。</p>
+        <ol>
+          <li>解压 <code>changshu-zhikaotong-v2.1-web.zip</code>，确认已安装 Python 3.4 或以上。</li>
+          <li>Windows 双击 <code>start.bat</code>；Linux / macOS 执行 <code>sh start.sh</code>；或直接 <code>python server.py</code>。</li>
+          <li>浏览器打开 <code>http://&lt;主机IP&gt;:8766/</code>；Lite 版 <code>http://&lt;主机IP&gt;:8766/lite</code>。</li>
+        </ol>
+        <p class="note">端口可用环境变量 <code>ZHIKAOTONG_PORT</code> 改，默认 8766。备份时整个 <code>data/</code> 目录一起复制。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 12 模块 -->
+<section class="block" id="modules">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">功能全览</div>
+      <h2>12 个模块，点一点就明白</h2>
+      <p>点下面的标签切换模块；每个模块都配了一个可点的小演示，试试选项、答题卡和计时器。</p>
+    </div>
+    <div class="mod-tabs reveal" role="tablist" aria-label="12 个模块" id="modTabs"></div>
+    <div class="card reveal" id="modPanels"></div>
+  </div>
+</section>
+
+
+<!-- v2 新增 -->
+<section class="block" id="v2new">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">v2.0 新增</div>
+      <h2>刷题宝功能并入，一个程序全有了</h2>
+      <p>12 个模块不变，另加 13 组刷题宝功能，全部走 <code>/api/v2/</code> 新接口（46 条）。水印 / 脱敏已按用户决定砍掉，本版不含。</p>
+    </div>
+    <div class="deploy-grid">
+      <article class="card deploy reveal">
+        <span class="tag tag-main">学员 · 越练越准</span>
+        <h3>自适应学习 + 五环节 + 薄弱训练</h3>
+        <p>FSRS 间隔复习（答错 1 天、答对 3 / 7 / 14 / 30 天）；薄弱占比动态到 65%；难度自适应；样本不足 20 题时冷启动默认比例出题。</p>
+        <p>五环节：顺序 / 随机 / 错题回顾 / 薄弱分析 / 阶段考核。薄弱项训练只练每人每知识点的薄弱处。</p>
+      </article>
+      <article class="card deploy reveal">
+        <span class="tag tag-web">考官 · 组卷批阅</span>
+        <h3>组卷模板 + 简答批阅 + 质量闭环</h3>
+        <p>模板按五题型配比（含简答、填空）开考，交卷后简答进批阅队列；人工打分，≥60% 满分算对，与选择题分开列示。</p>
+        <p>题库质量闭环：疑似错题标红，停用后不再出题，可恢复。PDF 文字型导入 + 图文错位自动配对（≥90% 自动 / 70–90% 复核 / &lt;70% 人工）。</p>
+      </article>
+      <article class="card deploy reveal">
+        <span class="tag tag-main">管理员 · 看板与运维</span>
+        <h3>仪表盘 + 学习计划 + 联邦 + 备份 + AI 变式</h3>
+        <p>仪表盘：雷达 + 趋势 + 柱状 + 热力 + 环形五图（纯 SVG），数字滚动 + 弹簧轻动；部门对比用精确汇总，不再推算。</p>
+        <p>学习计划按去重题数算进度；联邦共享跨主机拉题库（令牌 + SHA-256 + 去重 + 审计）；一键 / 自动备份保留 7 份；本地规则 AI 变式（选项顺序 / 题干表述 / 题干数字），须人工审核后发布。</p>
+      </article>
+    </div>
+    <div class="warn-strip reveal" style="margin-top:20px"><b>✓ 三个旧问题已修复</b><span>部门对比答对数精确汇总（执勤三队 11 道对 7 道）；计划进度去重计数（目标 5 道、去重 done=3）；模板开考含简答（五种题型各 1 道）。对照数见 acceptance-v2.1.md。</span></div>
+  </div>
+</section>
+
+<!-- 账号 -->
+<section class="block" id="accounts">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">演示账号</div>
+      <h2>四个账号，三种角色</h2>
+      <p>首次启动自动播种。学员自助注册需要邀请码，初始值 <b>CS2026</b>，管理员可随时更换。</p>
+    </div>
+    <div class="acct-grid">
+      <article class="card acct reveal"><div class="avatar">管</div><code>admin</code><div class="role">管理员</div><p>用户管理、上报处理、统计分析、版本发布、邀请码管理</p></article>
+      <article class="card acct reveal"><div class="avatar">考</div><code>jiaoguan</code><div class="role">考官</div><p>考试管理、固定试卷、阅卷、题库管理</p></article>
+      <article class="card acct reveal"><div class="avatar">民</div><code>minjing</code><div class="role">学员</div><p>日常练习、模拟考试、正式考试、错题本、上报</p></article>
+      <article class="card acct reveal"><div class="avatar">民</div><code>minjing2</code><div class="role">学员</div><p>同上，考试名单含 minjing 与 minjing2</p></article>
+    </div>
+    <div class="warn-strip reveal"><b>⚠️ 上线前必改</b><span>全部演示账号密码均为 <b>123456</b>。上线前务必修改全部演示密码，并更换学员注册邀请码。</span></div>
+  </div>
+</section>
+
+<!-- 改名工具 -->
+<section class="block" id="rebrand">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">给别的站用</div>
+      <h2>改名小工具，一键换站名</h2>
+      <p>exe 包内自带 <code>rebrand-tool.exe</code>（双击打开），把「常熟站智考通」换成别的站名。
+      工具读当前名字、不写死，改过一次还能再改；执行前自动备份，可恢复。</p>
+    </div>
+    <div class="rebrand-grid">
+      <article class="card rebrand reveal">
+        <h3>八步用法</h3>
+        <ol class="steps">
+          <li><b>双击打开</b> <code>rebrand-tool.exe</code>（无控制台窗口；找不到运行时会弹窗提示）。</li>
+          <li><b>确认目标文件夹</b>：默认取工具所在目录的上一级（程序根目录），可点「浏览…」改。</li>
+          <li><b>确认当前名字</b>：从 <code>branding.json</code> 读入填好（只读）。</li>
+          <li><b>填新站名</b>：如 <code>南京站</code>，新程序名自动填好为「南京站智考通」，可再手动改。</li>
+          <li><b>勾选启动器 exe 改名</b>（默认勾上）：改名后启动器 exe 文件名变成新程序名。</li>
+          <li><b>点「扫描预览」</b>：逐行列出将要改动的文件，确认后再执行。</li>
+          <li><b>点「一键改名」</b>：确认对话框再看一次汇总（文件数、总处数、备份目录名），点确定才执行。</li>
+          <li><b>改名后重启程序生效</b>：关闭智考通再重新打开；正在运行的请先退出再改名。</li>
+        </ol>
+      </article>
+      <article class="card rebrand rebrand-demo reveal">
+        <h3 style="color:#fff">试一试：改名预览</h3>
+        <p style="font-size:13px;color:#C7D3E0">这是一个本地小演示，不改任何文件。填一个新站名，看看改名后程序名长什么样。</p>
+        <label for="newStation">新站名</label>
+        <input id="newStation" type="text" value="南京站" maxlength="20" autocomplete="off">
+        <label for="newApp">新程序名（自动生成，可手动改）</label>
+        <input id="newApp" type="text" value="南京站智考通" maxlength="30" autocomplete="off">
+        <label>当前名字（只读，来自 branding.json）</label>
+        <input type="text" value="常熟站 / 常熟站智考通" readonly>
+        <button class="btn btn-gold" id="rebrandPreview" type="button">扫描预览（演示）</button>
+        <div class="out" id="rebrandOut">点「扫描预览」，这里会显示改名汇总演示。<br>正式改名请双击 exe 包内的 rebrand-tool.exe。</div>
+      </article>
+    </div>
+    <div class="warn-strip reveal" style="margin-top:20px"><b>🛡 备份与恢复</b><span>执行前自动把被改动的文件备份到程序根目录下的 <code>backup-&lt;YYYYMMDD-HHMMSS&gt;/</code>（含恢复清单与改名前 branding.json 副本）。点「恢复备份」选一个备份目录可一键拷回去；恢复前会先把当前文件再备一份。题库数据文件（<code>*.db</code>）与题目内容不碰。</span></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="block" id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">常见问题</div>
+      <h2>先看这里，再问人</h2>
+      <p>点问题展开答案。</p>
+    </div>
+    <div class="card reveal" id="faqList">
+      <div class="faq-item"><button class="faq-q" type="button">Win7 / XP 上能跑吗？<span class="chev">＋</span></button><div class="faq-a"><p>能。exe 版是 32 位启动器 + 32 位 Python 3.4.4 运行时，XP SP3 及以上、Win7（32/64 位）、Win10 都能跑；启动器只依赖 Windows 自带的 KERNEL32.dll / USER32.dll / msvcrt.dll，无需额外运行库。网页版在 XP 上请用 Lite 版 /lite（IE8 兼容，降级点在页面底部明说：无圆角/阴影/毛玻璃/动效/深色模式/系统字体，大标题大按钮留白）。</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button">端口被占用怎么办？<span class="chev">＋</span></button><div class="faq-a"><p>默认端口 8766。网页版可用环境变量 ZHIKAOTONG_PORT 改端口；exe 版内嵌服务器端口固定 8766，端口被占时请先关掉占用 8766 的程序（例如同时跑了网页版），再启动 exe。</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button">首次启动要建库吗？<span class="chev">＋</span></button><div class="faq-a"><p>不用。首次启动自动建库并播种演示数据（4 用户 / 20 题 / 2 场考试）。数据库在 data/zhikaotong.db，备份时整个 data/ 目录一起复制。</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button">题库怎么导入？<span class="chev">＋</span></button><div class="faq-a"><p>在考官端「题库管理」里点「下载导入模板」拿 Excel 模板，按模板填好后导入；导入结果逐行列出成功与失败原因，失败行不整批失败。Word 导入同样在题库管理里。题图导入时存入 data/assets/，练习与考试中点击可放大。</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button">改名后什么时候生效？<span class="chev">＋</span></button><div class="faq-a"><p>改名后关闭智考通再重新打开，新名字才生效。正在运行的智考通请先退出再改名。改名只改程序名与站名这两个字符串；题库内容、账号、端口（8766）、版本号（v2.1）都不动。</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button">自适应练习怎么练？<span class="chev">＋</span></button><div class="faq-a"><p>学员进「自适应练习」：先按掌握度与难度出题，答错的题 1 天后复习，答对的按 3 / 7 / 14 / 30 天排期；样本不足 20 题时是冷启动，先按默认比例出题。薄弱知识点占比会动态升到 65%，只练薄弱处。</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button">联邦共享和备份在哪？<span class="chev">＋</span></button><div class="faq-a"><p>管理员进「联邦共享」登记对方主机（地址 + 端口 + 对方令牌），连通测试看对方题库目录，拉取按题号去重；本机令牌在同一页查看。「备份管理」里一键备份、保留最近 7 份，恢复前自动再备一份。</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button">exe 双击没反应？<span class="chev">＋</span></button><div class="faq-a"><p>先确认文件夹完整（python34\pythonw.exe 与 app\main.py 必须在 exe 所在目录的固定相对位置；请先把整个压缩包解压到一个文件夹，再进文件夹双击运行，不要直接在压缩包里双击，也不要只把 exe 单独拖出来）。v2.1 新增诊断：双击 exe 文件夹里的 debug.bat，会弹出黑色控制台窗口显示完整报错；启动失败时还会在 exe 文件夹根目录生成 error.log（报错全文），把截图或 error.log 发回来就能定位。请把便携文件夹放在浅一点的目录（例如 D:\常熟站智考通\），超长路径不支持。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 已知限制 -->
+<section class="block" id="limits">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">如实说明</div>
+      <h2>已知限制</h2>
+      <p>以下没有验证过，不要当作已验证。完整验收记录见 acceptance-v2.1.md。改名工具已在完整交付树副本（exe/ + web/）上实测改名与恢复。</p>
+    </div>
+    <div class="card reveal">
+      <ul class="limit-list">
+        <li><b>未在真实 Windows / XP 机上双击验证过。</b>exe 启动器与改名工具启动器只做了编译与静态核对；客户端界面只在 Linux + Xvfb 下跑过自测；Python 3.4.4 运行时上的实际表现仅做了语法静态检查。</li>
+        <li><b>未做真实 150 并发与局域网多机测试。</b>本次只做单机抽查与接口自测。</li>
+        <li><b>浏览器实测未做：</b>现代版在 Chrome / Edge 中的实际交互、动效手感、深色模式切换、空格键推进；Lite 版在真实 IE8 / XP 机上的渲染；考试全流程的端到端浏览器走查。</li>
+        <li><b>题图：</b>tkinter 原生只解 GIF / PPM，本客户端不内置图片解码；题图处显示文件名，点击放大弹窗说明文件位于服务器 data/assets/。Pillow 的 _imaging.pyd 在真实 XP 上的实际加载与题图显示未验证。</li>
+        <li><b>改名工具：</b>已在 /tmp 完整交付树副本上实测改名与恢复（exe 包 49 个文件、web 包 37 个文件，12 个新增 v2 模块全覆盖）；正式使用前仍建议先在副本上试一次。恢复请用最近一次备份，否则中间又改过名的 exe 需手动删除。</li>
+        <li>客户端更新检查只查版本记录，不下载程序体；更新包由部署方另行分发。启动器不含图标与版本信息，不管应用死活。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b>常熟站智考通 v2.1</b> · 藏青金主题 · 端口 8766</div>
+    <div class="f-note">原版智考通 v2.9.0 的 1:1 复刻，常熟站版，全新重写。验收记录见 acceptance-v2.1.md；API 契约见 API-CONTRACT.md（v1 的 61 个端点；v2 新增 /api/v2/ 46 条见 MERGE-PLAN.md §六）。本页零依赖、零 CDN，纯手写 CSS / JS。</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+var $=function(s,c){return (c||document).querySelector(s)};
+var $$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+/* ---------- 12 个模块 ---------- */
+var MODULES=[
+{id:"login",tab:"登录注册",who:"全部角色",title:"登录注册",
+ info:"<p>藏青底 + 白色表单卡 + 重绘 logo。登录页填服务器地址、用户名、密码；没有账号走学员注册。</p><ul><li><b>注册：</b>姓名、部门必填，密码 ≥6 位，邀请码向管理员索取（初始 CS2026）</li><li><b>成功后提示</b>「注册成功，请登录」，返回登录页</li><li><b>发现新版本：</b>后台查到新版时，版本号上方显示提示条 +「立即更新」</li><li><b>登录失败有明确提示；</b>必填项缺了会先校验再提交</li></ul>",
+ demo:'<div class="demo-label">演示 · 登录表单</div><div class="demo-card"><h4>常熟站智考通 <span class="pill pill-navy">v2.1</span></h4><div class="demo-row"><span>服务器地址</span><b class="right">127.0.0.1:8766</b></div><div class="demo-row"><span>用户名</span><b class="right">minjing</b></div><div class="demo-row"><span>角色</span><span class="right"><span class="pill pill-green">学员</span></span></div><div class="demo-row"><span>版本</span><b class="right">v2.1 · 已是最新版本</b></div><button class="btn btn-gold" style="width:100%;justify-content:center;margin-top:12px" onclick="alert(\'演示页：登录按钮不真的发请求。\')">登录</button><p style="font-size:12px;color:var(--ink-2);margin-top:10px;text-align:center">没有账号？<b style="color:var(--navy)">学员注册</b>（需邀请码）</p></div>'},
+{id:"practice",tab:"日常练习",who:"学员",title:"日常练习",
+ info:"<p>练习中枢：四种模式，断点续刷，空格键推进，判分后在题下展开智能分析，不弹窗打断节奏。</p><ul><li><b>顺序：</b>按题号全量顺序，上次刷到第 N 题可继续 / 从头开始</li><li><b>随机：</b>全量随机抽题，顺序打乱；<b>错题：</b>做对一题自动移出错题本</li><li><b>题型练习：</b>选定题型后刷完该题型全部题目</li><li><b>判分：</b>单选/判断点提交或按空格；多选全对才得分；填空回车或空格提交；简答对照参考答案自评</li></ul>",
+ demo:'<div class="demo-label">演示 · 点一个选项试试</div><div class="demo-card"><h4>第 3 题 <span class="pill pill-navy">单选</span> <span class="pill pill-grey">基础法规</span></h4><p style="font-size:14px">出入境边防检查机关对出境入境人员证件查验的主要依据是？</p><button class="demo-opt" type="button" data-q="A"><span class="mark">A</span>《出境入境管理法》</button><button class="demo-opt" type="button" data-q="B"><span class="mark">B</span>《治安管理处罚法》</button><button class="demo-opt" type="button" data-q="C"><span class="mark">C</span>《海关法》</button><div class="demo-feedback ok" id="qFb"><b>✓ 回答正确</b>正确答案 A。解析：出入境证件查验以《出境入境管理法》为主要法律依据。</div><div class="demo-feedback bad" id="qFbBad"><b>智能分析已展开</b>错因：把证件查验的法律依据与治安处罚混淆了。关键点：《出境入境管理法》是边检执法的核心依据；本题已自动加入错题本。</div><p style="font-size:12px;color:var(--ink-2);margin-top:10px">空格键：未提交时提交答案，已提交时下一题。</p></div>'},
+{id:"mock",tab:"模拟考试",who:"学员",title:"模拟考试",
+ info:"<p>自由组卷的练手考试：按题型选数量、分类、时长；开始后立即计时，答案实时保存，断线重连可继续。</p><ul><li><b>组卷：</b>至少设置一种题型的数量，否则提示「请至少设置一种题型的数量」</li><li><b>考试中：</b>剩余时间、答题卡、答案实时保存；中途退出可恢复</li><li><b>交卷：</b>确认框提示还有 N 题未作答；超时系统自动交卷判分</li><li><b>成绩：</b>得分、客观题总数、正确率；只看错题 / 查看全部；逐题解析；填空/简答自评后计入总分</li></ul>",
+ demo:'<div class="demo-label">演示 · 计时与答题卡</div><div class="demo-card"><h4>模拟考试 · 剩余时间</h4><div class="timer" id="mockTimer">29:59</div><p style="font-size:12px;color:var(--ink-2)">点「开始计时」后倒计时走 30 秒演示；答题卡点一下标记已答。</p><button class="btn btn-gold" id="timerBtn" type="button" style="padding:9px 18px;font-size:13px">开始计时</button><div class="answer-grid" id="mockGrid" style="margin-top:12px"></div></div>'},
+{id:"exam",tab:"正式考试",who:"学员",title:"正式考试",
+ info:"<p>考官发布的正式考试：统一试卷、统一判分，迟交有标记，成绩可逐题回看。</p><ul><li><b>列表状态：</b>未开始 / 进行中（继续考试）/ 已交卷（查看成绩）</li><li><b>开始确认：</b>进入后将开始计时；答案自动保存（已自动保存 / 保存失败提示）</li><li><b>交卷：</b>交卷后立即判分、不能再修改；时间到按已保存答案自动交卷（迟交）</li><li><b>成绩：</b>卷面总分、正确率、迟交标记；只看错题 / 查看全部；全部答对时「全部答对，没有错题」</li></ul>",
+ demo:'<div class="demo-label">演示 · 正式考试示例</div><div class="demo-card"><h4>常熟站 2026 年第一季度业务考核</h4><div class="demo-row"><span>科目</span><b class="right">基础法规</b></div><div class="demo-row"><span>时长</span><b class="right">60 分钟</b></div><div class="demo-row"><span>试卷</span><b class="right">固定试卷 · 10 道题</b></div><div class="demo-row"><span>状态</span><span class="right"><span class="pill pill-green">已发布</span></span></div><div class="demo-row"><span>名单</span><b class="right">minjing、minjing2</b></div><button class="btn btn-gold" style="width:100%;justify-content:center;margin-top:12px" onclick="alert(\'演示页：开始考试不真的发请求。\')">开始考试</button></div>'},
+{id:"wrongbook",tab:"错题本与智能分析",who:"学员",title:"错题本与智能分析",
+ info:"<p>答错自动入错题本，做对一题自动移除；判分后在题下展开四段智能分析，不弹窗打断节奏。</p><ul><li><b>智能分析四段：</b>错因分析 / 逐选项辨析 / 答案关键点 / 理解与记忆建议</li><li><b>错题管理：</b>列表（题号、题干、正确答案、解析、智能分析、移除）、重做全部错题</li><li><b>暂无错题时：</b>显示「暂无错题，继续加油」</li><li><b>练习统计：</b>做题总数、各题型正确率、近 14 天趋势（纯 SVG 柱状图）</li></ul>",
+ demo:'<div class="demo-label">演示 · 各题型正确率</div><div class="demo-card"><h4>练习统计</h4><div class="demo-row"><span>单选</span><b class="right">86%</b></div><div class="bar"><i style="--w:86%"></i></div><div class="demo-row"><span>多选</span><b class="right">64%</b></div><div class="bar"><i style="--w:64%"></i></div><div class="demo-row"><span>判断</span><b class="right">92%</b></div><div class="bar"><i style="--w:92%"></i></div><div class="demo-row"><span>填空</span><b class="right">71%</b></div><div class="bar"><i style="--w:71%"></i></div><p style="font-size:12px;color:var(--ink-2);margin-top:10px">多选正确率最低，建议重做错题本里的多选题。</p></div>'},
+{id:"report",tab:"题目上报",who:"学员",title:"题目上报",
+ info:"<p>题目有问题就上报，管理员会处理并回复；处理结果在「我的上报」里能看到。</p><ul><li><b>上报类型：</b>题干有歧义 / 答案有误 / 解析有误 / 其他问题 + 补充说明（选填）</li><li><b>我的上报列表：</b>待处理 / 已解决 / 已驳回 + 管理员回复</li><li><b>提交成功有明确提示</b></li></ul>",
+ demo:'<div class="demo-label">演示 · 上报一张卡片</div><div class="demo-card"><h4>我的上报</h4><div class="demo-row"><span>ZK007 · 单选</span><span class="right"><span class="pill pill-gold">待处理</span></span></div><p style="font-size:13px;color:var(--ink-2)">类型：答案有误<br>补充：选项 C 与解析中的说法不一致，请核对。</p><div class="demo-row"><span>上报时间</span><b class="right">2026-11-06</b></div></div>'},
+{id:"exam-mgmt",tab:"考试管理",who:"考官",title:"考试管理",
+ info:"<p>考官端：创建、发布、结束、删除考试；固定试卷生成并锁定；成绩导出 CSV、阅卷回看逐题。</p><ul><li><b>创建/编辑：</b>名称、科目（自定义/基础法规/业务技能）、时长、题目乱序、试卷模式、五题型数量与每题分、可考开始/结束时间选填、考试名单按部门分组全选</li><li><b>固定试卷：</b>生成并锁定，开考后不能再重新生成；可查看题目与顺序</li><li><b>删除前先查成绩：</b>「已有 N 人交卷 / 还有 N 人正在考试，其作答将作废」，删除连同名单、试卷、成绩一起清掉，不可恢复</li><li><b>成绩：</b>应考/已交卷/平均分、列表、导出 CSV、阅卷回看逐题</li></ul>",
+ demo:'<div class="demo-label">演示 · 考试列表</div><div class="demo-card"><h4>考试管理</h4><div class="demo-row"><span>常熟站 2026 年第一季度业务考核</span><span class="right"><span class="pill pill-green">已发布</span></span></div><div class="demo-row"><span>执勤规范专项测试(草稿)</span><span class="right"><span class="pill pill-grey">草稿</span></span></div><div class="demo-row"><span>应考 / 已交卷 / 平均分</span><b class="right">2 / 2 / 82.5</b></div><button class="btn btn-gold" style="padding:9px 18px;font-size:13px;margin-top:12px" onclick="alert(\'演示页：创建考试不真的发请求。\')">＋ 创建考试</button></div>'},
+{id:"qbank",tab:"题库管理",who:"考官",title:"题库管理",
+ info:"<p>题库是考试的底座：Excel / Word 导入、新增、搜索、启用/停用、编辑/删除、分页。</p><ul><li><b>导入：</b>下载导入模板，按模板填好后导入；结果逐行列出成功 N 条 / 失败 N 条 + 失败原因</li><li><b>搜索：</b>关键词、题型下拉、分类下拉；列表题号/题干/题型/分类/答案/状态</li><li><b>新增/编辑表单：</b>题号、题干、选项 A–D、正确答案、解析、分类、图片文件名、当前题图预览；题干和答案不能为空；删除需确认</li><li><b>分页：</b>上一页 / 下一页；「题库共 N 题」</li></ul>",
+ demo:'<div class="demo-label">演示 · 题库构成</div><div class="demo-card"><h4>题库共 20 题</h4><div class="demo-row"><span>单选</span><b class="right">8 题</b></div><div class="bar"><i style="--w:40%"></i></div><div class="demo-row"><span>多选</span><b class="right">4 题</b></div><div class="bar"><i style="--w:20%"></i></div><div class="demo-row"><span>判断</span><b class="right">4 题</b></div><div class="bar"><i style="--w:20%"></i></div><div class="demo-row"><span>填空 / 简答</span><b class="right">2 / 2 题</b></div><div class="bar"><i style="--w:20%"></i></div><p style="font-size:12px;color:var(--ink-2);margin-top:10px">分类：基础法规 / 证件查验 / 口岸勤务 / 执勤规范</p></div>'},
+{id:"users",tab:"用户管理",who:"管理员",title:"用户管理",
+ info:"<p>管理员端：批量导入、新增用户、搜索过滤、批量停用/删除/重置密码。</p><ul><li><b>批量导入：</b>下载导入模板、批量导入；新增用户（用户名不可修改、姓名不能为空、新建时初始密码 ≥6 位）</li><li><b>搜索：</b>搜索框 + 部门下拉过滤；全选只作用于当前可见</li><li><b>批量操作：</b>编辑所选只能针对单个用户、停用所选、删除所选、重置密码；未勾选时提示「请先勾选用户」</li><li><b>删除确认：</b>「删除 N 名用户，其考试记录将一并删除，且不可恢复」</li></ul>",
+ demo:'<div class="demo-label">演示 · 用户一览</div><div class="demo-card"><h4>用户管理</h4><div class="demo-row"><span>admin · 管理员</span><span class="right"><span class="pill pill-green">正常</span></span></div><div class="demo-row"><span>jiaoguan · 考官</span><span class="right"><span class="pill pill-green">正常</span></span></div><div class="demo-row"><span>minjing · 民警甲 · 执勤一队</span><span class="right"><span class="pill pill-green">正常</span></span></div><div class="demo-row"><span>minjing2 · 民警乙 · 执勤二队</span><span class="right"><span class="pill pill-green">正常</span></span></div></div>'},
+{id:"reports",tab:"上报处理",who:"管理员",title:"上报处理",
+ info:"<p>管理员处理学员上报：按完整题目原样展示，处理后回复学员，已处理记录追加到下方。</p><ul><li><b>待处理：</b>按完整题目原样展示（题号/题型/题干/选项/正确答案/解析/题图）+ 上报内容（类型/补充说明/上报用户/上报时间）</li><li><b>处理：</b>标记已解决 / 驳回 / 同时停用该题 + 回复学员</li><li><b>已处理记录：</b>追加到下方末尾（按 id 升序，越晚处理越往下排），显示处理于时间 + 处理回复</li><li><b>暂无时：</b>显示「暂无待处理的上报」</li></ul>",
+ demo:'<div class="demo-label">演示 · 上报处理</div><div class="demo-card"><h4>待处理的上报</h4><div class="demo-row"><span>ZK007 · 答案有误 · minjing</span><span class="right"><span class="pill pill-gold">待处理</span></span></div><p style="font-size:13px;color:var(--ink-2)">处理：标记已解决 / 驳回 / 同时停用该题，并回复学员。</p><button class="btn btn-gold" style="padding:9px 18px;font-size:13px" onclick="alert(\'演示页：处理上报不真的发请求。\')">标记已解决并回复</button></div>'},
+{id:"stats",tab:"统计分析",who:"管理员",title:"统计分析",
+ info:"<p>管理员看全站：学员总数、练习总题次、全站正确率、待处理上报；图表纯 SVG。</p><ul><li><b>卡片：</b>学员总数、练习总题次、全站正确率、待处理上报</li><li><b>图表（纯 SVG）：</b>学员部门分布、题库构成按题型/分类、考试成绩最近 5 场人已考/均分</li><li><b>暂无数据时：</b>显示「暂无数据」</li></ul>",
+ demo:'<div class="demo-label">演示 · 全站概览</div><div class="demo-card"><h4>统计分析</h4><div class="demo-row"><span>学员总数</span><b class="right count-up" data-count="2">0</b></div><div class="demo-row"><span>练习总题次</span><b class="right count-up" data-count="128">0</b></div><div class="demo-row"><span>全站正确率</span><b class="right">80.0%</b></div><div class="bar"><i style="--w:80%"></i></div><div class="demo-row"><span>待处理上报</span><b class="right">1</b></div></div>'},
+{id:"settings",tab:"系统设置",who:"全部角色",title:"系统设置",
+ info:"<p>显示、答题偏好、密码、账号与服务器、邀请码、客户端更新，都在这里。</p><ul><li><b>显示模式：</b>全屏/窗口切换立即生效并记住；<b>字号：</b>标准/特大</li><li><b>答题偏好：</b>打乱选项顺序开关（保存后下次生效）；答错时显示本地智能分析开关</li><li><b>修改密码：</b>当前/新密码 ≥6 位/确认，两次不一致提示；成功后「密码修改成功，下次登录请使用新密码」</li><li><b>账号与服务器：</b>当前用户、部门、服务器、软件版本、学员注册邀请码（管理员可随时更换）</li><li><b>客户端更新：</b>正在检查 / 已是最新版本 / 服务器最新版本 / 立即更新</li></ul>",
+ demo:'<div class="demo-label">演示 · 设置开关</div><div class="demo-card"><h4>系统设置</h4><div class="demo-row"><span>显示模式</span><span class="right"><span class="pill pill-navy">全屏</span></span></div><div class="demo-row"><span>字号</span><span class="right"><span class="pill pill-navy">标准</span></span></div><div class="demo-row"><span>打乱选项顺序</span><span class="right"><span class="pill pill-grey">关</span></span></div><div class="demo-row"><span>答错显示智能分析</span><span class="right"><span class="pill pill-green">开</span></span></div><div class="demo-row"><span>邀请码</span><b class="right">CS2026</b></div></div>'}
+];
+/* ---------- 渲染标签与面板 ---------- */
+var tabsEl=$("#modTabs"), panelsEl=$("#modPanels");
+MODULES.forEach(function(m,i){
+  var b=document.createElement("button");
+  b.type="button"; b.className="mod-tab"; b.setAttribute("role","tab");
+  b.setAttribute("aria-selected", i===0?"true":"false");
+  b.textContent=(i+1)+". "+m.tab; b.dataset.id=m.id;
+  b.addEventListener("click",function(){selectModule(m.id)});
+  tabsEl.appendChild(b);
+  var p=document.createElement("div");
+  p.className="mod-panel"+(i===0?" active":""); p.id="panel-"+m.id;
+  p.setAttribute("role","tabpanel");
+  p.innerHTML='<div class="mod-body"><div class="mod-info"><span class="who">'+m.who+'</span><h3>'+m.title+'</h3>'+m.info+'</div><div class="mod-demo">'+m.demo+'</div></div>';
+  panelsEl.appendChild(p);
+});
+function selectModule(id){
+  $$(".mod-tab",tabsEl).forEach(function(t){t.setAttribute("aria-selected", t.dataset.id===id?"true":"false")});
+  $$(".mod-panel",panelsEl).forEach(function(p){p.classList.toggle("active", p.id==="panel-"+id)});
+  bindPanelDemo(id);
+  var panel=$("#panel-"+id);
+  if(panel){panel.scrollIntoView({behavior:reduced()?"auto":"smooth",block:"nearest"})}
+}
+function reduced(){return document.body.classList.contains("reduced-motion")||window.matchMedia("(prefers-reduced-motion: reduce)").matches}
+
+/* ---------- 面板内演示绑定 ---------- */
+var timerInt=null;
+function bindPanelDemo(id){
+  if(timerInt){clearInterval(timerInt);timerInt=null}
+  if(id==="practice"){
+    $$("#panel-practice .demo-opt").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        $$("#panel-practice .demo-opt").forEach(function(o){o.classList.remove("sel","right","wrong")});
+        btn.classList.add("sel");
+        var ok=btn.dataset.q==="A";
+        var fb=$("#qFb"), fbBad=$("#qFbBad");
+        if(ok){btn.classList.add("right");fb.classList.add("show");fbBad.classList.remove("show")}
+        else{btn.classList.add("wrong");fbBad.classList.add("show");fb.classList.remove("show");
+          var r=$("#panel-practice .demo-opt[data-q='A']"); if(r) r.classList.add("right")}
+      });
+    });
+  }
+  if(id==="mock"){
+    var grid=$("#mockGrid");
+    if(grid && !grid.children.length){
+      for(var i=1;i<=10;i++){
+        (function(n){
+          var b=document.createElement("button"); b.type="button"; b.textContent=n;
+          if(n===1) b.classList.add("cur");
+          b.addEventListener("click",function(){
+            $$("button",grid).forEach(function(x){x.classList.remove("cur")});
+            b.classList.add("cur"); b.classList.add("done");
+          });
+          grid.appendChild(b);
+        })(i);
+      }
+    }
+    var tBtn=$("#timerBtn"), tEl=$("#mockTimer");
+    if(tBtn && tEl){
+      tBtn.addEventListener("click",function(){
+        if(timerInt){clearInterval(timerInt);timerInt=null;tBtn.textContent="开始计时";tEl.textContent="29:59";tEl.classList.remove("warn");return}
+        var sec=30; tBtn.textContent="停止计时";
+        timerInt=setInterval(function(){
+          sec--;
+          var m=Math.floor(sec/60), s=sec%60;
+          tEl.textContent=(m<10?"0":"")+m+":"+(s<10?"0":"")+s;
+          if(sec<=10) tEl.classList.add("warn");
+          if(sec<=0){clearInterval(timerInt);timerInt=null;tBtn.textContent="时间到，已自动交卷";tEl.textContent="00:00"}
+        },1000);
+      });
+    }
+  }
+}
+bindPanelDemo("login");
+/* Hero 卡片跳转到对应模块 */
+$$("[data-goto]").forEach(function(b){
+  b.addEventListener("click",function(){
+    selectModule(b.dataset.goto);
+    document.getElementById("modules").scrollIntoView({behavior:reduced()?"auto":"smooth"});
+  });
+});
+/* ---------- 数字滚动 ---------- */
+function countUp(el){
+  var target=parseInt(el.dataset.count,10)||0, suf=el.dataset.suffix||"";
+  if(reduced()){el.textContent=target+suf;return}
+  var start=null, dur=900;
+  function step(ts){
+    if(!start) start=ts;
+    var p=Math.min((ts-start)/dur,1), e=1-Math.pow(1-p,3);
+    el.textContent=Math.round(target*e)+suf;
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+var counted=false;
+function runCounts(){
+  if(counted) return; counted=true;
+  $$(".count-up").forEach(countUp);
+}
+runCounts();
+/* ---------- 入场动效 ---------- */
+var io=("IntersectionObserver" in window)?new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}});
+},{threshold:.12}):null;
+$$(".reveal").forEach(function(el){
+  if(io) io.observe(el); else el.classList.add("in");
+});
+/* ---------- FAQ ---------- */
+$$(".faq-item").forEach(function(item){
+  var q=$(".faq-q",item);
+  q.addEventListener("click",function(){
+    var open=item.classList.contains("open");
+    $$(".faq-item").forEach(function(x){x.classList.remove("open")});
+    if(!open) item.classList.add("open");
+  });
+});
+/* ---------- 深色模式 ---------- */
+var modeBtn=$("#modeBtn");
+function applyMode(dark){
+  document.body.classList.toggle("dark",dark);
+  modeBtn.textContent=dark?"☀️ 浅色":"🌙 深色";
+  modeBtn.setAttribute("aria-pressed",dark?"true":"false");
+  try{localStorage.setItem("zkt-showcase-dark",dark?"1":"0")}catch(e){}
+}
+var saved=null;
+try{saved=localStorage.getItem("zkt-showcase-dark")}catch(e){}
+if(saved==="1") applyMode(true);
+else if(saved==="0") applyMode(false);
+else if(window.matchMedia("(prefers-color-scheme: dark)").matches) document.body.classList.add("dark-auto");
+modeBtn.addEventListener("click",function(){
+  document.body.classList.remove("dark-auto");
+  applyMode(!document.body.classList.contains("dark"));
+});
+if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) document.body.classList.add("reduced-motion");
+/* ---------- 改名预览演示 ---------- */
+var newStation=$("#newStation"), newApp=$("#newApp"), rebrandOut=$("#rebrandOut"), edited=false;
+newStation.addEventListener("input",function(){
+  if(!edited) newApp.value=(newStation.value||"").replace(/\s+$/,"")+"智考通";
+});
+newApp.addEventListener("input",function(){edited=true});
+$("#rebrandPreview").addEventListener("click",function(){
+  var st=(newStation.value||"").trim()||"南京站";
+  var ap=(newApp.value||"").trim()||(st+"智考通");
+  rebrandOut.innerHTML="扫描完成（演示，不改文件）：将改动 <b>49 个文件</b>（exe 包实测），全名 <b>90 处</b>，站名 <b>9 处</b>，共 <b>99 处</b>。<br>「常熟站智考通」→「<b>"+ap+"</b>」，「常熟站」→「<b>"+st+"</b>」。<br>执行前将自动备份到 <b>backup-YYYYMMDD-HHMMSS/</b>，题库 .db 一个字节不动。";
+});
+})();
+</script>
+</body>
+</html>
