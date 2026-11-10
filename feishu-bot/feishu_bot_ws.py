@@ -33,6 +33,7 @@ from feishu_bot import (  # noqa: F401  (reuse the proven brain)
 
 def on_message(data):
     """lark_oapi event handler for P2ImMessageReceiveV1."""
+    log("ws frame dispatched to handler, type=%s" % type(data).__name__)
     try:
         event = data.event
         message = event.message
@@ -98,7 +99,7 @@ def main():
     ws = WSClient(FEISHU_APP_ID, FEISHU_APP_SECRET,
                   event_handler=handler,
                   domain=lark.FEISHU_DOMAIN,
-                  log_level=lark.LogLevel.INFO,
+                  log_level=lark.LogLevel.DEBUG,
                   auto_reconnect=True)
     log("starting websocket long connection to Feishu ...")
     ws.start()  # blocks; reconnects automatically
